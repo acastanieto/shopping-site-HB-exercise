@@ -65,19 +65,23 @@ def shopping_cart():
     # TODO: Display the contents of the shopping cart.
     #   - The cart is a list in session containing melons added
     shopping_cart = session["cart"] 
-    melon_list = []
-    # melon_totals = Counter()
-    melon_totals = {}
-
+    melon_quantities = Counter()
+    melon_totals = []
     
 
     for id in shopping_cart:
-        melon_list.append(model.Melon.get_by_id(id))
+        melon_quantities.update([model.Melon.get_by_id(id)])
 
-    for melon in melon_list:
-        # melon_totals.update([melon.common_name])
-        # create dictionary with melon: [ quantity, unit price, total price]
-        # pass this to template
+    # for melon in melon_quantities:
+    #     print melon
+    #     [melon, , melon.calc_melon_total]
+
+
+    
+
+
+        # LIST OF LISTS
+        # pass list of lists to template
 
 
 
