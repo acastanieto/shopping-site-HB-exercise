@@ -12,6 +12,8 @@ import jinja2
 
 import model
 
+from collections import Counter
+
 
 
 app = Flask(__name__)
@@ -52,7 +54,6 @@ def show_melon(id):
     """
 
     melon = model.Melon.get_by_id(id)
-    print melon
     return render_template("melon_details.html",
                            display_melon=melon)
 
@@ -63,6 +64,29 @@ def shopping_cart():
 
     # TODO: Display the contents of the shopping cart.
     #   - The cart is a list in session containing melons added
+    shopping_cart = session["cart"] 
+    melon_list = []
+    # melon_totals = Counter()
+    melon_totals = {}
+
+    
+
+    for id in shopping_cart:
+        melon_list.append(model.Melon.get_by_id(id))
+
+    for melon in melon_list:
+        # melon_totals.update([melon.common_name])
+        # create dictionary with melon: [ quantity, unit price, total price]
+        # pass this to template
+
+
+
+
+
+
+
+
+
 
     return render_template("cart.html")
 
