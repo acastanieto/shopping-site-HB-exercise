@@ -62,18 +62,19 @@ def show_melon(id):
 def shopping_cart():
     """Display content of shopping cart."""
 
-    shopping_cart = session["cart"] 
-    id_quantities = Counter()
+    id_quantities = Counter(session["cart"])  
     melon_totals = []
-    
+    grand_total = 0
 
-    for id in shopping_cart:
-        id_quantities.update([id])
-   
     for id in id_quantities:
-        melon_totals.append([model.Melon.get_by_id(id), id_quantities[id], model.Melon.get_by_id(id).calc_melon_total(id_quantities[id])])
-    
-    return render_template("cart.html")
+        line_item_total = model.Melon.get_by_id(id).calc_melon_total(id_quantities[id])
+        melon_object = model.Melon.get_by_id(id)
+        quantity = id_quantities[id]
+        grand_total += line_item_total
+        melon_totals.append((melon_object, quantity, line_item_total))
+
+
+    return render_template("cart.html", melon_totals=melon_totals, grand_total=grand_total)
 
 
 @app.route("/add_to_cart/<int:id>")
@@ -89,8 +90,6 @@ def add_to_cart(id):
     else:
         session["cart"] = []
         session["cart"].append(id) 
-
-    print session    
 
     flash("This was successfully added to the cart!")
     return redirect("/cart")

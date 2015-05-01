@@ -33,7 +33,7 @@ class Melon(object):
 
     def calc_melon_total(self,qty):
         """Calculate total melon price"""
-        return "$%.2f" % (self.price * qty)
+        return self.price * qty
 
     def __repr__(self):
         """Convenience method to show information about melon in console."""
