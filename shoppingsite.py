@@ -67,12 +67,14 @@ def shopping_cart():
     grand_total = 0
 
     for id in id_quantities:
+        
         line_item_total = model.Melon.get_by_id(id).calc_melon_total(id_quantities[id])
         melon_object = model.Melon.get_by_id(id)
         quantity = id_quantities[id]
+        
         grand_total += line_item_total
-        melon_totals.append((melon_object, quantity, line_item_total))
 
+        melon_totals.append((melon_object, quantity, line_item_total))
 
     return render_template("cart.html", melon_totals=melon_totals, grand_total=grand_total)
 
